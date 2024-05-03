@@ -5,7 +5,7 @@ import turtle
 
 # Graph Window Initialisation
 window = turtle.Screen()
-window.title("Salary")
+window.title("Car price")
 
 # Turtle creation
 scatter = turtle.Turtle()
@@ -14,7 +14,7 @@ scatter.speed(0) # Maximal speed - no animation
 
 X = []
 y = []
-with open("Salary_Data.csv", mode='r', encoding='utf-8') as csvfile:
+with open("data.csv", mode='r', encoding='utf-8') as csvfile:
     dataset = csv.reader(csvfile)
     next(dataset) # Ignoring Title
     for data in dataset:
@@ -63,7 +63,7 @@ for i in range(1, int(max_x) + 3):
     scatter.write(str(i), align="center")
 
 # Dessiner les graduations sur l'axe y
-for i in range(round(int(min_y), -4), round(int(max_y), -4) + 3, 20000):
+for i in range(round(int(min_y), -4), round(int(max_y), -4) + 3, 100000):
     y_tick = i * scale_y - scale
     scatter.penup()
     scatter.goto(min_x * scale_x - scale - margin, y_tick)  # Déplacer vers la gauche pour l'axe y
