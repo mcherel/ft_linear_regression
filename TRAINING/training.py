@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../../ft_linear_regression')
 import csv
-import random
+# import random
 import ESTIMATE_PRICE.estimate_price as price
 
 """ theta0 = random.uniform(-1, 1)
