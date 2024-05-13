@@ -27,7 +27,7 @@ if os.path.exists(file_path):
         theta0 = 0
         theta1 = 0
         theta0, theta1 = map(float, next(dataset))
-        plt.plot(ordonne, theta0 * ordonne + theta0, color='r')
+        #plt.plot(ordonne, theta0 * ordonne + theta0, color='r')
 
 plt.show()
 

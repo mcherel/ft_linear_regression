@@ -44,7 +44,7 @@ def gradient_descent(theta0, theta1, X_km, y_price):
 
 def main():
     X_km, y_price = open_csv(file)
-    theta0, theta1 = gradient_descent(theta0, theta1, X_km, y_price)
+    theta0, theta1 = gradient_descent(0, 0, X_km, y_price)
 
     with open(training_data_file, 'w', newline='') as f:
         writer = csv.writer(f)
