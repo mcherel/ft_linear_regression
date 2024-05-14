@@ -1,6 +1,9 @@
+import sys
+sys.path.append('../../ft_linear_regression')
 import os
-import estimate_price as price
+from TOOLS import estimate_price as price
 import csv
+import TOOLS as tools
 
 km = int(input("Please, enter the milage in kilometers: \n"))
 
@@ -13,4 +16,4 @@ if os.path.exists(file_path):
         dataset = csv.reader(csvfile)
         next(dataset)
         theta0, theta1 = map(float, next(dataset))
-print(f"The price of you car is estimated to {int(price.hypothesis(theta0, theta1, [km])[0])}")
+print(f"The price of you car is estimated to {int(tools.estimate_price.hypothesis(theta0, theta1, [km])[0])}")

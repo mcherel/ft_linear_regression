@@ -2,48 +2,44 @@ import sys
 sys.path.append('../../ft_linear_regression')
 import csv
 # import random
-import ESTIMATE_PRICE.estimate_price as price
-
+from TOOLS import open_csv, estimate_price
+import numpy as np
 """ theta0 = random.uniform(-1, 1)
 theta1 = random.uniform(-1, 1) """
 theta0 = 0
 theta1 = 0
+
 file = "../DATA/data.csv"
 training_data_file = "../DATA/training.csv"
 
-def open_csv(file):
-    X = []
-    y = []
-    with open(file=file, mode='r', encoding='utf-8') as csvfile:
-        dataset = csv.reader(csvfile)
-        next(dataset)
-        for km, price in dataset:
-            X.append(float(km))
-            y.append(float(price))
-    return X, y
+
 
 def gradient_descent(theta0, theta1, X_km, y_price):
-    learning_rate = 0.0000000001
+    learning_rate = 0.00000000001
     num_iterations = 1000
     data_points = len(X_km)
 
     for _ in range(num_iterations):
-        estimated_prices = price.hypothesis(theta0, theta1, X_km) 
+        #Prediction
+        #estimated_prices = price.hypothesis(theta0, theta1, X_km)
+        predictions = estimate_price.hypothesis(theta0, theta1, X_km)
+        
         # Calculate gradient
-        error = [estimated_prices[j] - y_price[j] for j in range(data_points)]
-        grad_theta0 = (1/data_points) * sum(error[j] - y_price[j] for j in range(data_points))
-        grad_theta1 = (1/data_points) * sum((estimated_prices[j] - y_price[j]) * X_km[j] for j in range(data_points))
+        #error = np.mean((predictions - y_price) ** 2)
+        # grad_theta0 = (1/data_points) * sum(error[j] - y_price[j] for j in range(data_points))
+        # grad_theta1 = (1/data_points) * sum((estimated_prices[j] - y_price[j]) * X_km[j] for j in range(data_points))
         
         # Update params
-        theta0 -= learning_rate * grad_theta0
-        theta1 -= learning_rate * grad_theta1
+        error = [predictions[j] - y_price[j] for j in range(data_points)]
+        theta0 -= learning_rate * (2/data_points) * sum(error[j] - y_price[j] for j in range(data_points))
+        theta1 -= learning_rate * (2/data_points) * sum((predictions[j] - y_price[j]) * X_km[j] for j in range(data_points))
 
         #print(f"Iteration {i+1}: theta0={theta0}, theta1={theta1}")
 
     return theta0, theta1
 
 def main():
-    X_km, y_price = open_csv(file)
+    X_km, y_price = open_csv.open_csv(file)
     theta0, theta1 = gradient_descent(0, 0, X_km, y_price)
 
     with open(training_data_file, 'w', newline='') as f:
@@ -55,6 +51,39 @@ def main():
 
 if __name__ == '__main__':
     main()
+'''
+# Initialisation des coefficients
+pente = 0
+intercept = 0
+taux_apprentissage = 0.0001  # Taux d'apprentissage
+
+# Nombre d'itérations
+iterations = 1000
+
+# Descente de gradient
+for i in range(iterations):
+    # Prédiction avec les coefficients actuels
+    predictions = pente * annee + intercept
+    
+    # Calcul de l'erreur
+    erreur = np.mean((predictions - prix) ** 2)
+    
+    # Mise à jour des coefficients avec la descente de gradient
+    pente -= taux_apprentissage * (2 / len(annee)) * np.sum((predictions - prix) * annee)
+    intercept -= taux_apprentissage * (2 / len(annee)) * np.sum(predictions - prix)
+    
+# Prédiction du prix pour l'année 2020
+prix_predit = pente * 2020 + intercept
+print("Prix prédit pour l'année 2020 :", prix_predit)
+
+# Visualisation des données et de la régression linéaire
+plt.scatter(annee, prix, color='blue')
+plt.plot(annee, pente * annee + intercept, color='red')
+plt.xlabel('Année de fabrication')
+plt.ylabel('Prix de la voiture')
+plt.title('Régression linéaire avec descente de gradient')
+plt.show()
+'''
 
 '''
 def cross_validation(X, y, learningRate, iterations, num_splits=5):
