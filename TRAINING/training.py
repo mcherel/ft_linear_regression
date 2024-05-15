@@ -1,25 +1,19 @@
 import sys
 sys.path.append('../../ft_linear_regression')
 import csv
-# import random
+import random
 from TOOLS import open_csv, estimate_price
 import numpy as np
-""" theta0 = random.uniform(-1, 1)
-theta1 = random.uniform(-1, 1) """
-theta0 = 0
-theta1 = 0
-
-file = "../DATA/data.csv"
-training_data_file = "../DATA/training.csv"
 
 
 
 def gradient_descent(theta0, theta1, X_km, y_price):
-    learning_rate = 0.00000000001
+    learning_rate = 0.000001
     num_iterations = 1000
     data_points = len(X_km)
 
-    for _ in range(num_iterations):
+
+    for i in range(num_iterations):
         #Prediction
         #estimated_prices = price.hypothesis(theta0, theta1, X_km)
         predictions = estimate_price.hypothesis(theta0, theta1, X_km)
@@ -30,18 +24,39 @@ def gradient_descent(theta0, theta1, X_km, y_price):
         # grad_theta1 = (1/data_points) * sum((estimated_prices[j] - y_price[j]) * X_km[j] for j in range(data_points))
         
         # Update params
-        error = [predictions[j] - y_price[j] for j in range(data_points)]
+        error = np.array(predictions) - np.array(y_price)
         theta0 -= learning_rate * (2/data_points) * sum(error[j] - y_price[j] for j in range(data_points))
         theta1 -= learning_rate * (2/data_points) * sum((predictions[j] - y_price[j]) * X_km[j] for j in range(data_points))
 
-        #print(f"Iteration {i+1}: theta0={theta0}, theta1={theta1}")
+        print(f"Iteration {i+1}: theta0={theta0}, theta1={theta1}")
 
     return theta0, theta1
 
 def main():
+    file = "../DATA/data.csv"
     X_km, y_price = open_csv.open_csv(file)
-    theta0, theta1 = gradient_descent(0, 0, X_km, y_price)
 
+
+    #Normalizing the data
+    X_km_mean = np.mean(X_km)
+    X_km_std = np.std(X_km)
+    X_km = (X_km - X_km_mean) / X_km_std
+
+    y_price_mean = np.mean(y_price)
+    y_price_std = np.std(y_price)
+    y_price = (y_price - y_price_mean) / y_price_std
+    
+    #initializing thetas to random
+    theta0 = random.uniform(-1, 1)
+    theta1 = random.uniform(-1, 1)
+    theta0, theta1 = gradient_descent(theta0, theta1, X_km, y_price)
+    #theta0, theta1 = gradient_descent(0, 0, X_km, y_price)
+
+    #Denormalizing the data
+    theta0 *= y_price_std / X_km_std + y_price_mean - theta1 * (y_price_std * X_km_mean / X_km_std)
+    theta1 *= y_price_std / X_km_std
+
+    training_data_file = "../DATA/training.csv"
     with open(training_data_file, 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(['theta0', 'theta1'])

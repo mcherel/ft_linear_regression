@@ -16,4 +16,4 @@ if os.path.exists(file_path):
         dataset = csv.reader(csvfile)
         next(dataset)
         theta0, theta1 = map(float, next(dataset))
-print(f"The price of you car is estimated to {int(tools.estimate_price.hypothesis(theta0, theta1, [km])[0])}")
+print(f"The price of you car is estimated to {int(tools.estimate_price.hypothesis(theta0, theta1, km))}")
