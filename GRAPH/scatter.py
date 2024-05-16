@@ -31,7 +31,7 @@ if os.path.exists(file_path):
         y_regression = theta0 + theta1 * x_regression
 
         plt.plot(x_regression, y_regression,  color='r', label='Régression linéaire')
-        plt.scatter(X, y, label='Données')
+        plt.scatter(X, y, label='Données', color='b')
         
         plt.legend()
         plt.title('Price Prediction')
