@@ -25,11 +25,16 @@ if os.path.exists(file_path):
         x_regression = np.linspace(X_scaled.min(), X_scaled.max(), 100).reshape(-1, 1)
         y_regression = theta0 + theta1 * x_regression
 
-        plt.plot(x_regression, y_regression,  color='r', label='Regression linéaire')
+        plt.plot(x_regression, y_regression,  color='r', label='Régression linéaire')
         plt.scatter(X_scaled, y_scaled, label='Données')
 
         plt.xlabel('Mileage (normalized)')
         plt.ylabel('Price (normalized)')
         plt.legend()
         plt.title('Régression linéaire et données')
+
+        # Ajustement de l'échelle des axes
+        plt.xlim(0, 1)
+        plt.ylim(0, 1)
+
         plt.show()
