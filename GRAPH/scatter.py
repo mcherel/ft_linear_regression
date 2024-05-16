@@ -41,53 +41,17 @@ if os.path.exists(file_path):
         y_regression = np.array(theta0 + theta1 * x_regression).astype(int)
         x_regression = np.linspace((X.min()), (X.max()), 100)
         y_regression = theta0 + theta1 * x_regression
-        print(x_regression)
-        print(        )
-        print(y_regression)
-        #model = LinearRegression()
-        #mode.fit(x_regression)
-        plt.plot(x_regression, y_regression,  color='r', label ='lr')
-        plt.scatter(np.array(X),np.array(y), label ='data')
-        #plt.scatter(X_scaled,y_scaled, label ='data')
+
+        plt.plot(x_regression, y_regression,  color='r', label='Régression linéaire')
+        plt.scatter(X_scaled, y_scaled, label='Données')
+
+        plt.xlabel('Mileage (normalized)')
+        plt.ylabel('Price (normalized)')
         plt.legend()
-        plt.title('Price Prediction')
-        #sorted_indices = np.argsort(X)
-        #X_sorted = X[sorted_indices]
-        #plt.plot(ordonne, theta1*ordonne + theta0, color='r')
-        #plt.plot(X_sorted, theta1*X_sorted + theta0, color='r')
+        plt.title('Régression linéaire et données')
 
-        #Data Normalizing """
-        """ scaler = MinMaxScaler()
-        X_normalized = scaler.fit_transform(np.array(X).reshape(-1, 1))
-        plt.plot(X_normalized, theta0 + theta1 * X, color='r') """
-    '''with open(file=file_path, mode='r', encoding='utf-8') as csvfile:
-        dataset = csv.reader(csvfile)
-        next(dataset)
-        #ordonne = np.linspace( 250000, 50000)
-        theta0, theta1 = map(float, next(dataset))
-        #xmin, xmax = X.min(), X.max()
-        #ordonne = np.linspace(xmin, xmax)
-        #plt.plot(ordonne, theta0 + theta1 * ordonne, color='r')
-        X_normalized = (X - X.min()) / (X.max() - X.min())
-        ordonne = np.linspace((X - X.min()), (X.max() - X.min()))
-        plt.plot(ordonne, theta0 + theta1 * ordonne, color='r')
-        #plt.plot(ordonne,  color='r')
-        #theta0 = 0
-        #theta1 = 0
-        #theta0, theta1 = map(float, next(dataset))
-        #plt.plot(ordonne, theta0 * ordonne + theta0, color='r')'''
-    pass
+        # Ajustement de l'échelle des axes
+        plt.xlim(0, 1)
+        plt.ylim(0, 1)
 
-plt.show()
-
-"""
-file_path = "../DATA/training.csv"
-theta0 = 0
-theta1 = 0
-
-if os.path.exists(file_path):
-    with open(file=file_path, mode='r', encoding='utf-8') as csvfile:
-        dataset = csv.reader(csvfile)
-        next(dataset)
-        theta0, theta1 = map(float, next(dataset)
-        """
+        plt.show()
