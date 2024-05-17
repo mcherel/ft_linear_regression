@@ -8,8 +8,8 @@ import numpy as np
 
 
 def gradient_descent(theta0, theta1, X_km, y_price):
-    learning_rate = 0.000001
-    num_iterations = 30000
+    learning_rate = 0.0000001
+    num_iterations = 10000
     data_points = len(X_km)
 
 
@@ -49,7 +49,7 @@ def main():
     #initializing thetas to random
     #theta0 = random.uniform(-1, 1)
     theta0 = 1
-    theta1 = -0.5
+    theta1 = -1
     theta0, theta1 = gradient_descent(theta0, theta1, X_km, y_price)
     #theta0, theta1 = gradient_descent(0, 0, X_km, y_price)
 
