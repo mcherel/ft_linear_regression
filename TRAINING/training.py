@@ -9,7 +9,7 @@ import numpy as np
 
 def gradient_descent(theta0, theta1, X_km, y_price):
     learning_rate = 0.000001
-    num_iterations = 1000
+    num_iterations = 30000
     data_points = len(X_km)
 
 
@@ -47,8 +47,9 @@ def main():
     y_price = (y_price - y_price_mean) / y_price_std
     
     #initializing thetas to random
-    theta0 = random.uniform(-1, 1)
-    theta1 = random.uniform(-1, 1)
+    #theta0 = random.uniform(-1, 1)
+    theta0 = 1
+    theta1 = -0.5
     theta0, theta1 = gradient_descent(theta0, theta1, X_km, y_price)
     #theta0, theta1 = gradient_descent(0, 0, X_km, y_price)
 
@@ -61,8 +62,8 @@ def main():
         writer = csv.writer(f)
         writer.writerow(['theta0', 'theta1'])
         writer.writerow([theta0, theta1])
-    print(theta0)
-    print(theta1)
+    print(f'theta0 : {theta0}')
+    print(f'theta1 : {theta1}')
 
 if __name__ == '__main__':
     main()

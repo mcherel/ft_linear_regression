@@ -40,7 +40,7 @@ xmin, xmax = X.min(), X.max()
 ordonne = np.linspace(xmin, xmax)
 #ordonne = np.linspace(0,11,1000)#creates a table of 1000 values from 0 to 15
 #graph plot
-plt.plot(ordonne,theta1[0]*ordonne + theta0, color='r')
+plt.plot(ordonne,theta11[0]*ordonne + theta00, color='r')
 
 # Prediction from test base
 y_predict = regressor.predict(X_test)
