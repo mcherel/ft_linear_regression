@@ -5,8 +5,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 from TOOLS import open_csv
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 from TOOLS import  estimate_price
 
