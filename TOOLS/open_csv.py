@@ -6,7 +6,7 @@ def open_csv(file):
     with open(file=file, mode='r', encoding='utf-8') as csvfile:
         dataset = csv.reader(csvfile)
         next(dataset)
-        for km, price in dataset:
-            X.append(float(km))
-            y.append(float(price))
+        for first, second in dataset:
+            X.append(float(first))
+            y.append(float(second))
     return X, y
