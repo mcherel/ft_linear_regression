@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 
-file_path = "../DATA/training.csv"
+training_data = "../DATA/training.csv"
 data = pd.read_csv('../DATA/data.csv')
 X = data['km'].values.reshape(-1, 1)
 y = data['price'].values.reshape(-1, 1)
@@ -25,22 +25,23 @@ regressor = LinearRegression()
 regressor.fit(X_train, y_train)
 theta11 = regressor.coef_
 theta00 = regressor.intercept_
+if os.path.exists(training_data):
+        with open(file=training_data, mode='r', encoding='utf-8') as csvfile:
+                dataset = csv.reader(csvfile)
+                next(dataset)
+                theta0, theta1 = map(float, next(dataset))
+                theta1 = [[theta1]]
+                theta0 = [theta0]
 
-with open(file=file_path, mode='r', encoding='utf-8') as csvfile:
-        dataset = csv.reader(csvfile)
-        next(dataset)
-        theta0, theta1 = map(float, next(dataset))
-        theta1 = [[theta1]]
-        theta0 = [theta0]
+                print(f'{theta11} {theta1}')
+                print(f'{theta00} {theta0}')
+                # Adding a red line
+                xmin, xmax = X.min(), X.max()
+                ordonne = np.linspace(xmin, xmax)
+                plt.plot(ordonne,theta1[0]*ordonne + theta0, color='r')
 
-        print(f'{theta11} {theta1}')
-        print(f'{theta00} {theta0}')
-# Adding a red line
-xmin, xmax = X.min(), X.max()
-ordonne = np.linspace(xmin, xmax)
-#ordonne = np.linspace(0,11,1000)#creates a table of 1000 values from 0 to 15
-#graph plot
-plt.plot(ordonne,theta1[0]*ordonne + theta0, color='r')
+                #Linear Regression
+                plt.plot(ordonne,theta11[0]*ordonne + theta00, color='k')
 
 # Prediction from test base
 y_predict = regressor.predict(X_test)
@@ -53,7 +54,7 @@ print(f'R²: \t{metrics.r2_score(y_test, y_predict)}')
 
 plt.show()
 
-""" file_path = "../DATA/training.csv"
+""" training_data = "../DATA/training.csv"
 data = pd.read_csv('../DATA/data.csv')
 
 X = data['km'].values.reshape(-1, 1)
@@ -62,8 +63,8 @@ y = data['price'].values.reshape(-1, 1)
 plt.xlabel('Mileage in km')
 plt.ylabel('Price')
 
-if os.path.exists(file_path):
-    with open(file=file_path, mode='r', encoding='utf-8') as csvfile:
+if os.path.exists(training_data):
+    with open(file=training_data, mode='r', encoding='utf-8') as csvfile:
         dataset = csv.reader(csvfile)
         next(dataset)
         theta0, theta1 = map(float, next(dataset))

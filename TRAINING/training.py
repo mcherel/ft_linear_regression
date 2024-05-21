@@ -25,10 +25,10 @@ def gradient_descent(theta0, theta1, X_km, y_price):
         
         # Update params
         error = np.array(predictions) - np.array(y_price)
-        theta0 -= learning_rate * (2/data_points) * sum(error[j] - y_price[j] for j in range(data_points))
-        theta1 -= learning_rate * (2/data_points) * sum((predictions[j] - y_price[j]) * X_km[j] for j in range(data_points))
+        theta0 -= learning_rate * (1/data_points) * sum(error[j] - y_price[j] for j in range(data_points))
+        theta1 -= learning_rate * (1/data_points) * sum((predictions[j] - y_price[j]) * X_km[j] for j in range(data_points))
 
-        print(f"Iteration {i+1}: theta0={theta0}, theta1={theta1}")
+        #print(f"Iteration {i+1}: theta0={theta0}, theta1={theta1}")
 
     return theta0, theta1
 
@@ -49,7 +49,7 @@ def main():
     #initializing thetas to random
     #theta0 = random.uniform(-1, 1)
     theta0 = 1
-    theta1 = -1
+    theta1 = -0.8
     theta0, theta1 = gradient_descent(theta0, theta1, X_km, y_price)
     #theta0, theta1 = gradient_descent(0, 0, X_km, y_price)
 
