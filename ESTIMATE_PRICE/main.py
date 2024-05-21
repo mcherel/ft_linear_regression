@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../../ft_linear_regression')
 import os
-from TOOLS import estimate_price,  open_csv
+from TOOLS import estimate_price, open_csv
 
 km = input("Please, enter the milage in kilometers: \n")
 try:
